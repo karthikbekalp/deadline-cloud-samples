@@ -1,0 +1,41 @@
+From 38acaa44084647cf5d3f276385bfaf89c301fb9f Mon Sep 17 00:00:00 2001
+From: Karthik Bekal Pattathana <133984042+karthikbekalp@users.noreply.github.com>
+Date: Tue, 15 Oct 2024 19:50:35 -0500
+Subject: [PATCH] Remove version build hook
+
+---
+ .../pyproject.toml                             | 18 ------------------
+ 1 file changed, 18 deletions(-)
+
+diff --git a/deadline_cloud_for_cinema_4d-0.3.4/pyproject.toml b/deadline_cloud_for_cinema_4d-0.3.4/pyproject.toml
+index babdae5..1ea9453 100644
+--- a/deadline_cloud_for_cinema_4d-0.3.4/pyproject.toml
++++ b/deadline_cloud_for_cinema_4d-0.3.4/pyproject.toml
+@@ -46,24 +46,6 @@ artifacts = [
+   "*_version.py",
+ ]
+ 
+-[tool.hatch.version]
+-source = "vcs"
+-
+-[tool.hatch.version.raw-options]
+-version_scheme = "post-release"
+-
+-[tool.hatch.build.hooks.vcs]
+-version-file = "_version.py"
+-
+-[tool.hatch.build.hooks.custom]
+-path = "hatch_custom_hook.py"
+-
+-[tool.hatch.build.hooks.custom.copy_version_py]
+-destinations = [
+-  "src/deadline/cinema4d_adaptor",
+-  "src/deadline/cinema4d_submitter",
+-]
+-
+ [tool.hatch.build.targets.sdist]
+ include = [
+     "src/*",
+-- 
+2.40.1.windows.1
+

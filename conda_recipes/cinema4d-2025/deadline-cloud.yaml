@@ -1,5 +1,5 @@
 condaPlatforms:
   - platform: win-64
     defaultSubmit: false
-    sourceArchiveFilename: blender-4.2.1-windows-x64.zip
-    sourceDownloadInstructions: 'Run "curl -LO https://download.blender.org/release/Blender4.2/blender-4.2.1-windows-x64.zip"'
+    sourceArchiveFilename: Cinema4D_2025_2025.0.2_Win.exe
+    sourceDownloadInstructions: 'Download Cinema4D from https://www.maxon.net/en/downloads/cinema-4d-2025-downloads'

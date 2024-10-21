@@ -1,15 +1,18 @@
 {% set name = "cinema4d" %}
 {% set display_name = "Cinema4D" %}
-{% set version_partial = "2025" %}
+{% set version_major = "2025" %}
 {% set version_minor = "0" %}
-{% set version = version_partial + "." + version_minor %}
+{% set version_patch = "2" %}
+{% set version = version_major + "." + version_minor + "." + version_patch %}
+
+{% set bucket_name = "your-bucket-name" %}
 
 package:
   name: {{ name }}
   version: {{ version }}
 
 source:
-  url: s3://byol-example-ja-bucket-686255944943-us-east-2/C4DInstallers/Cinema4D_2025_2025.0.1_Win.exe
+  url: s3://{{ bucket_name }}/{{ display_name }}_{{ version_major }}_{{ version }}_Win.exe # [win64]
   folder: installer
 
 build:

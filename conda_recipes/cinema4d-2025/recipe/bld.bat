@@ -25,33 +25,17 @@ REM to activate environments on Windows, so we recommend always producing both .
 (
     echo set C4D_LOCATION="%%CONDA_PREFIX%%\c4d"
     echo set C4D_VERSION="%PKG_VERSION%"
-    echo set DEADLINE_CLOUD_PYTHONPATH="%SP_DIR%"
-    echo set DEADLINE_CINEMA4D_EXE="%CONDA_PREFIX%\c4d\Commandline.exe"
-    echo set redshift_LICENSE=5054@127.0.0.1
-    echo set g_licenseServerUrl=http://127.0.0.1:5236
 ) > "%PREFIX%\etc\conda\activate.d\%PKG_NAME%-%PKG_VERSION%-vars.bat" || exit /b 1
 (
     echo export C4D_LOCATION="$CONDA_PREFIX\\c4d"
     echo export C4D_VERSION="%PKG_VERSION%"
-    echo export DEADLINE_CLOUD_PYTHONPATH="%SP_DIR%"
-    echo export DEADLINE_CINEMA4D_EXE="$CONDA_PREFIX\\c4d\\Commandline.exe"
-    echo export redshift_LICENSE=5054@127.0.0.1
-    echo export g_licenseServerUrl=http://127.0.0.1:5236
 ) > "%PREFIX%\etc\conda\activate.d\%PKG_NAME%-%PKG_VERSION%-vars.sh" || exit /b 1
 
 (
     echo set C4D_LOCATION=
     echo set C4D_VERSION=
-    echo set DEADLINE_CLOUD_PYTHONPATH=
-    echo set DEADLINE_CINEMA4D_EXE=
-    echo set redshift_LICENSE=
-    echo set g_licenseServerUrl=
 ) > "%PREFIX%\etc\conda\deactivate.d\%PKG_NAME%-%PKG_VERSION%-vars.bat" || exit /b 1
 (
     echo unset C4D_LOCATION
     echo unset C4D_VERSION
-    echo unset DEADLINE_CLOUD_PYTHONPATH
-    echo unset DEADLINE_CINEMA4D_EXE
-    echo unset redshift_LICENSE
-    echo unset g_licenseServerUrl
 ) > "%PREFIX%\etc\conda\deactivate.d\%PKG_NAME%-%PKG_VERSION%-vars.sh" || exit /b 1

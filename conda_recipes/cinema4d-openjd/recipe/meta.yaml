@@ -10,6 +10,7 @@ source:
   sha256: 36bc0d81bd40eb1cc0403b06ddbf98a4a6963ecfffb1abaf5caf53891ab0f9c6
   patches:
     - 0001-Remove-version-build-hook.patch
+    - 0002-Get-sitepackages-path.patch
 
 ## Here's an alternative source definition to build a package from a development branch on github. Replace
 ## the username and git branch as appropriate for your case.

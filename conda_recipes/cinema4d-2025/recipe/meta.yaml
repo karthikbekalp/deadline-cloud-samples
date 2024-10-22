@@ -5,14 +5,14 @@
 {% set version_patch = "2" %}
 {% set version = version_major + "." + version_minor + "." + version_patch %}
 
-{% set bucket_name = "your-bucket-name" %}
+{% set bucket_name = "byol-example-ja-bucket-686255944943-us-east-2/C4DInstallers" %}
 
 package:
   name: {{ name }}
   version: {{ version }}
 
 source:
-  url: s3://{{ bucket_name }}/{{ display_name }}_{{ version_major }}_{{ version }}_Win.exe # [win64]
+  url: s3://{{ bucket_name }}/{{ display_name }}_{{ version_major }}_{{ version }}_Win.exe
   folder: installer
 
 build:

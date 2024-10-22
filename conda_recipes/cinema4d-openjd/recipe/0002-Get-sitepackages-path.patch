@@ -1,0 +1,72 @@
+From df92cc4a56de17286b7164a6dfe1564d6163ffd8 Mon Sep 17 00:00:00 2001
+From: Bekal Pattathana <133984042+karthikbekalp@users.noreply.github.com>
+Date: Mon, 21 Oct 2024 12:34:55 -0500
+Subject: [PATCH] Get sitepackages path
+
+---
+ .../Cinema4DAdaptor/adaptor.py                | 22 ++++++++++++++++++-
+ 1 file changed, 21 insertions(+), 1 deletion(-)
+
+diff --git a/src/deadline/cinema4d_adaptor/Cinema4DAdaptor/adaptor.py b/src/deadline/cinema4d_adaptor/Cinema4DAdaptor/adaptor.py
+index ab2c101..a7d26a4 100644
+--- a/src/deadline/cinema4d_adaptor/Cinema4DAdaptor/adaptor.py
++++ b/src/deadline/cinema4d_adaptor/Cinema4DAdaptor/adaptor.py
+@@ -9,6 +9,7 @@ import threading
+ import time
+ from functools import wraps
+ from typing import Callable
++import site
+ 
+ from openjd.adaptor_runtime.adaptors import Adaptor, AdaptorDataValidators, SemanticVersion
+ from openjd.adaptor_runtime.adaptors.configuration import AdaptorConfiguration
+@@ -272,12 +273,14 @@ class Cinema4DAdaptor(Adaptor[AdaptorConfiguration]):
+         # var allows us to use a wrapper around Commandline. Ideally a conda env
+         # does this for us.
+         c4d_exe_env = os.getenv("DEADLINE_CINEMA4D_EXE", "")
++        _logger.info(f"DEADLINE_CINEMA4D_EXE is {c4d_exe_env}")
+         if not c4d_exe_env:
+             c4d_exe = "Commandline"
+         else:
+             c4d_exe = c4d_exe_env
+         regexhandler = RegexHandler(self._get_regex_callbacks())
+ 
++
+         # If there are path mapping rules, set the cinema4d environment variable to enable them
+         cinema4d_pathmap = self._get_cinema4d_pathmap()
+         if cinema4d_pathmap:
+@@ -285,6 +288,23 @@ class Cinema4DAdaptor(Adaptor[AdaptorConfiguration]):
+ 
+         _logger.info("Setting CINEMA4D_PATHMAP to: {}".format(cinema4d_pathmap))
+ 
++        # If there are no DEADLINE_CLOUD_PYTHONPATH env set,
++        # set it to the conda environment's path. 
++        deadline_cloud_python_path = os.environ.get("DEADLINE_CLOUD_PYTHONPATH", "")
++        conda_path = os.environ.get("CONDA_PREFIX", "")
++        c4d_location = os.environ.get("C4D_LOCATION", "")
++        
++        _logger.info("Print the environment variables")
++        _logger.info(f"DEADLINE_CLOUD_PYTHONPATH: {deadline_cloud_python_path}")
++        _logger.info(f"CONDA_PREFIX: {conda_path}")
++        _logger.info(f"C4D location: {c4d_location}")
++        
++
++        conda_path_with_site_packages = f"{conda_path}\\Lib\\site-packages"
++        os.environ["DEADLINE_CLOUD_PYTHONPATH"] = conda_path_with_site_packages
++        set_conda_path = os.environ.get("DEADLINE_CLOUD_PYTHONPATH", "")
++        _logger.info(f"Setting DEADLINE_CLOUD_PYTHONPATH to {set_conda_path}")
++
+         # set plugin path to DeadlineCloudClient
+         parent_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+         client_dir = os.path.join(parent_dir, "Cinema4DClient")
+@@ -298,7 +318,7 @@ class Cinema4DAdaptor(Adaptor[AdaptorConfiguration]):
+         os.environ[module_path_key] = new_module_path
+ 
+         self._cinema4d_client = LoggingSubprocess(
+-            args=[c4d_exe, "-nogui", "-DeadlineCloudClient"],
++            args=["Commandline.bat", "-nogui", "-DeadlineCloudClient"],
+             stdout_handler=regexhandler,
+             stderr_handler=regexhandler,
+         )
+-- 
+2.40.1.windows.1
+

@@ -1,11 +1,8 @@
-REM Copy python dependencies
-if not exist %PREFIX%\Lib mkdir %PREFIX%\Lib || exit /b 1
-xcopy %SRC_DIR%\extracted\opt\deadline-cloud-for-keyshot %PREFIX%\Lib /s /e || exit /b 1
+python -m pip install . -vv --no-deps --no-build-isolation 
 
-REM Copy scripts.
-if not exist %SCRIPTS% mkdir %SCRIPTS% || exit /b 1
-copy %RECIPE_DIR%\KeyShotAdaptor.bat %SCRIPTS%\KeyShotAdaptor.bat || exit /b 1
-copy %RECIPE_DIR%\keyshot-openjd-script.py %SCRIPTS%\keyshot-openjd-script.py || exit /b 1
+REM See https://docs.conda.io/projects/conda/en/latest/dev-guide/deep-dives/activation.html
+REM for details on activation. The Deadline Cloud sample queue environments use bash
+REM to activate environments on Windows, so we recommend always producing both .bat and .sh files.
 
 if not exist "%PREFIX%\etc\conda\activate.d\" mkdir "%PREFIX%\etc\conda\activate.d" || exit /b 1
 if not exist "%PREFIX%\etc\conda\deactivate.d\" mkdir "%PREFIX%\etc\conda\deactivate.d" || exit /b 1

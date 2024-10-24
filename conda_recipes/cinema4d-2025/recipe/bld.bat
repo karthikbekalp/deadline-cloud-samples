@@ -24,11 +24,11 @@ REM to activate environments on Windows, so we recommend always producing both .
 
 (
     echo set C4D_LOCATION="%%CONDA_PREFIX%%\c4d"
-    echo set C4D_VERSION="%PKG_VERSION%"
+    echo set C4D_VERSION="%%PKG_VERSION%%"
 ) > "%PREFIX%\etc\conda\activate.d\%PKG_NAME%-%PKG_VERSION%-vars.bat" || exit /b 1
 (
     echo export C4D_LOCATION="$CONDA_PREFIX\\c4d"
-    echo export C4D_VERSION="%PKG_VERSION%"
+    echo export C4D_VERSION="$PKG_VERSION"
 ) > "%PREFIX%\etc\conda\activate.d\%PKG_NAME%-%PKG_VERSION%-vars.sh" || exit /b 1
 
 (
